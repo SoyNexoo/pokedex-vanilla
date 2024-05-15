@@ -162,4 +162,19 @@ const createPokemonCard = (pokemon) => {
   $container.appendChild(pokemonCardHolder);
 };
 
+const changeRegion = () => {
+  const $regionSelect = document.getElementById("regionSelect");
+  $regionSelect.addEventListener('click', (e) => {
+    const selectedRegion = e.target.getAttribute('data-value')
+    const activeRegion = document.querySelector('.active')
+    if (selectedRegion){
+        $container.innerHTML = ''
+        fetchPokemons(selectedRegion)
+        activeRegion.classList.remove('active')
+        e.target.classList.add('active')
+    }
+  })
+}
+
 fetchPokemons("kanto");
+changeRegion()
