@@ -1,6 +1,6 @@
 const $container = document.getElementById("container");
 const counter = 1010;
-const colors = {
+const borderColors = {
   fire: "#e03a3a",
   grass: "#50C878",
   electric: "#fad343",
@@ -19,6 +19,26 @@ const colors = {
   dark: "#414063",
   steel: "#808080",
   ice: "#98D8D8",
+};
+const colors = {
+  fire: "#ffb3b3",
+  grass: "#a3e0a3",
+  electric: "#ffecb3",
+  water: "#b3d9ff",
+  ground: "#b3a092",
+  rock: "#b3ab9e",
+  fairy: "#ffc0cb",
+  poison: "#dab3da",
+  bug: "#c6d9a3",
+  dragon: "#ffd8b3",
+  psychic: "#ebb3ff",
+  flying: "#b3e0f0",
+  fighting: "#d9a3a3",
+  normal: "#e0d9c0",
+  ghost: "#b3a3cc",
+  dark: "#a3a3b3",
+  steel: "#b3b3b3",
+  ice: "#cfe8e8",
 };
 
 const regions = {
@@ -119,6 +139,7 @@ const createPokemonCard = (pokemon) => {
   const pokeTypes = pokemon.types.map((type) => type.type.name);
   const type = mainTypes.find((type) => pokeTypes.indexOf(type) > -1);
   const color = colors[type];
+  const borderColor = borderColors[type];
 
   let frontImg;
   let backImg;
@@ -132,12 +153,13 @@ const createPokemonCard = (pokemon) => {
   }
 
   $pokemonCard.style.backgroundColor = color;
-
+  $pokemonCard.style.borderColor = borderColor;
+  
   const pokemonInnerHTML = `
   <div class="front side">
   <div class="img-container">
     <img class="background" src="./Icons/pokeball.svg" alt="pokeball" />
-    <img class="pokemon" src="${frontImg}" alt="${name}" />
+    <img class="image" src="${frontImg}" alt="${name}" />
   </div>
   <span class="number">#${id}</span>
   <h3 class="name">${name}</h3>
