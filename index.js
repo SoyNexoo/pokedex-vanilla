@@ -68,19 +68,32 @@ const $loader = document.querySelector(".lds-ring");
 const fetchPokemons = async (region) => {
   const { start, end } = regions[region];
   $loader.classList.add("ring-active");
+  $container.innerHTML = "";
+  const promises = [];
 
   for (let i = start; i <= end; i++) {
     const pokemonName = i.toString();
     const url = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`;
+    promises.push(fetch(url));
+    // // fetching
+    // let response = await fetch(url);
+    // let pokemon = await response.json();
+    // $loader.classList.remove("ring-active");
 
-    // fetching
-    let response = await fetch(url);
-    let pokemon = await response.json();
+    // // creating elements
+    // createPokemonCard(pokemon);
+    // setTimeout(() => {}, "150");
+  }
+
+  try {
+    const response = await Promise.all(promises);
+    const pokemons = await Promise.all(
+      response.map((response) => response.json())
+    );
     $loader.classList.remove("ring-active");
-
-    // creating elements
-    createPokemonCard(pokemon);
-    setTimeout(() => {}, "150");
+    pokemons.forEach((pokemon) => createPokemonCard(pokemon));
+  } catch (error) {
+    $loader.classList.remove("ring-active");
   }
 };
 
@@ -164,17 +177,17 @@ const createPokemonCard = (pokemon) => {
 
 const changeRegion = () => {
   const $regionSelect = document.getElementById("regionSelect");
-  $regionSelect.addEventListener('click', (e) => {
-    const selectedRegion = e.target.getAttribute('data-value')
-    const activeRegion = document.querySelector('.active')
-    if (selectedRegion){
-        $container.innerHTML = ''
-        fetchPokemons(selectedRegion)
-        activeRegion.classList.remove('active')
-        e.target.classList.add('active')
+  $regionSelect.addEventListener("click", (e) => {
+    const selectedRegion = e.target.getAttribute("data-value");
+    const activeRegion = document.querySelector(".active");
+    if (selectedRegion) {
+      $container.innerHTML = "";
+      fetchPokemons(selectedRegion);
+      activeRegion.classList.remove("active");
+      e.target.classList.add("active");
     }
-  })
-}
+  });
+};
 
 fetchPokemons("kanto");
-changeRegion()
+changeRegion();
