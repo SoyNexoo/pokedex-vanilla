@@ -99,6 +99,10 @@ const createPokemonCard = (pokemon) => {
   }
 
   const id = pokemon.id.toString().padStart(3, "0");
+
+  let weight = pokemon.weight / 10 + "kg";
+  let height = pokemon.height / 10 + "m";
+
   const pokeTypes = pokemon.types.map((type) => type.type.name);
   const type = mainTypes.find((type) => pokeTypes.indexOf(type) > -1);
   const color = colors[type];
@@ -115,5 +119,47 @@ const createPokemonCard = (pokemon) => {
   }
 
   $pokemonCard.style.backgroundColor = color;
-  
+
+  const pokemonInnerHTML = `
+  <div class="front side">
+  <div class="img-container">
+    <img class="background" src="./Icons/pokeball.svg" alt="pokeball" />
+    <img class="pokemon" src="${frontImg}" alt="${name}" />
+  </div>
+  <span class="number">#${id}</span>
+  <h3 class="name">${name}</h3>
+  <div class="types">
+    ${pokeTypes
+      .map(
+        (type) => `
+            <div class="type ${type}">
+                <img src="./Icons/${type}.svg" alt="${type}" />    
+            </div>`
+      )
+      .join("")}
+  </div>
+</div>
+<div class="back side">
+  <div class="img-container">
+    <img class="image" src="${
+      backImg == null ? frontImg : backImg
+    }" alt="${name}" />
+    <img src="./Icons/pokeball.svg" alt="pokeball" class="background">
+  </div>
+  <span class="number">#${id}</span>
+  <div class="stats">
+    <div>Weight:<br> <b>${weight}</b></div>
+    <div>Height:<br> <b>${height}</b></div>
+  </div>
+</div>
+  `;
+
+  $pokemonCard.innerHTML = pokemonInnerHTML;
+
+  const pokemonCardHolder = document.createElement("div");
+  pokemonCardHolder.classList.add("cardContainer");
+  pokemonCardHolder.appendChild($pokemonCard);
+  $container.appendChild(pokemonCardHolder);
 };
+
+fetchPokemons("kanto");
