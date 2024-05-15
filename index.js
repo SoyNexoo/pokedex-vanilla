@@ -154,7 +154,7 @@ const createPokemonCard = (pokemon) => {
 
   $pokemonCard.style.backgroundColor = color;
   $pokemonCard.style.borderColor = borderColor;
-  
+
   const pokemonInnerHTML = `
   <div class="front side">
   <div class="img-container">
@@ -210,6 +210,34 @@ const changeRegion = () => {
     }
   });
 };
+
+window.addEventListener("click", (e) => {
+  const $logo = document.getElementById("logo");
+  const $popup = document.getElementById("popup");
+  const $overlay = document.getElementById("overlay");
+  const $close = document.getElementById("close");
+
+  if (e.target === $logo) {
+    console.log("yes");
+    $overlay.style.display = "block";
+    $popup.style.display = "flex";
+  }
+  if (e.target === $overlay || e.target === $close) {
+    $overlay.style.display = "none";
+    $popup.style.display = "none";
+  }
+});
+
+window.addEventListener('keydown', (e) => {
+  const $popup = document.getElementById("popup");
+  const $overlay = document.getElementById("overlay");
+
+  if ($overlay.style.display == 'block' && e.key === 'Escape') {
+    $overlay.style.display = "none";
+    $popup.style.display = "none";
+  }
+})
+
 
 fetchPokemons("kanto");
 changeRegion();

@@ -6,14 +6,39 @@
     <title>Pokedex Vanilla</title>
     <link rel="stylesheet" href="styles.css" />
     <link rel="shortcut icon" href="./Icons/favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
   </head>
   <body>
     <div id="root">
       <!-- header -->
       <div class="header">
-          <img src="./Icons/Logo.png" width="300" alt="logo"  />
+        <img src="./Icons/Logo.png" width="300" alt="logo" />
         <div class="logo">
-          <img src="./Icons/favicon.ico" alt="logo" />
+          <img src="./Icons/favicon.ico" id="logo" alt="logo" />
+        </div>
+      </div>
+
+      <!-- Pop-up description -->
+      <div class="overlay" id="overlay"></div>
+      <div id="popup" class="popup">
+        <img src="/Icons/psyduck.png" alt="psyduck" width="100" />
+        <div class="popup-content">
+          <!-- <span class="close-button">&times;</span>
+          <p class="description">
+            Este proyecto fue creado por Julian Luque :)
+          </p>
+          <p>Para el puesto de Frontend Developer JR en ABSTI SA!</p>
+          <a href="https://github.com/SoyNexoo/pokedex-vanilla"
+            ><i class="github-icon fab fa-github"></i>Link del repositorio</a
+          > -->
+          <p>Esta Pokedex fue creado con JS Vanilla como prueba tecnica para la empresa ABSTI SA!</p>
+          <div class="btn-container">
+            <button class="btn close" id="close">Cerrar</button>
+            <a class="btn link"><i class="github-icon fab fa-github"></i> Link del repositorio</a>
+          </div>
         </div>
       </div>
 
@@ -43,8 +68,10 @@
       </div>
     </div>
 
-    
-
     <script src="index.js"></script>
+    <script
+      src="https://kit.fontawesome.com/919bc986f5.js"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
